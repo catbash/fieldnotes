@@ -1,0 +1,227 @@
+:root {
+    font-family: sans-serif;
+    font-size: 17px;
+
+    /* colours */
+    --main-bg: #111;
+    --main-fg: #b3b3b3;
+    --white: #fff;
+    --accent: #007ba7;
+}
+
+html {
+    background: var(--main-bg);
+    color: var(--main-fg);
+}
+
+a {
+  color: var(--white);
+  text-decoration: none;
+  display: inline-block;
+  padding: 0.05rem 0.25rem;
+  position: relative;
+}
+
+a::before {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  top: 0.57rem;
+  left: 0;
+  right: 0;
+  height: 1px;
+  width: 100%;
+  border: 2px solid var(--accent);
+  z-index: -1;
+  opacity: 0;
+}
+
+sup > a {
+    padding: 0;
+}
+
+sup, sub {
+    font-size: 0.7rem;
+    display: inline-block;
+}
+
+sup {
+    position: relative;
+    top: -3px;
+}
+
+a:hover::before,
+a:focus::before,
+a:active::before {
+  opacity: 1;
+}
+
+a:hover,
+a:focus,
+a:active {
+    outline: none;
+}
+
+ul, ol {
+    margin-left: 2rem;
+}
+
+li {
+    margin-top: 0.25rem;
+}
+
+p {
+    margin-bottom: 0.5rem;
+}
+
+hr {
+    border: none;
+    height: 1px;
+    width: 29%;
+    display: block;
+    margin: 3rem auto;
+    background: var(--main-fg);
+    opacity: 0.5;
+}
+
+pre {
+    padding: 0.5rem 1rem;
+    margin: 1rem;
+    border-radius: 7px;
+    font-family: monospace;
+}
+
+code {
+    display: inline-block;
+    font-family: monospace;
+    padding: 0.05rem 0.25rem;
+    border-radius: 7px;
+}
+
+header {
+    text-align: center;
+}
+
+header h1 {
+    height: 4rem;
+}
+
+header h1 > a,
+header h1 > a::before,
+header h1 > a:hover,
+header h1 > a:focus {
+    border: none;
+    background: transparent;
+}
+
+header h1 > a:hover,
+header h1 > a:focus {
+    font-style: italic;
+    margin-top: -0.21rem;
+}
+
+header li,
+header ul,
+header ol,
+header nav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+}
+
+header, main, footer {
+    display: block;
+    padding: 1rem 2rem;
+}
+
+header > div, main > div, footer > div {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin-top: 1.5rem;
+}
+
+h1, h2, h3 {
+    color: var(--white);
+}
+
+h1 {
+    font-size: 2.5rem;
+}
+
+h2 {
+    font-size: 2rem;
+}
+
+h3 {
+    font-size: 1.7rem;
+}
+
+h4 {
+    font-size: 1.5rem;
+}
+
+h5 {
+    font-size: 1.3rem;
+}
+
+h6 {
+    font-size: 1.25rem;
+}
+
+strong, b {
+    font-weight: bold;
+}
+
+i, em {
+    font-style: italic;
+}
+
+u {
+    text-decoration: underline;
+}
+
+summary {
+    cursor: pointer;
+}
+
+details {
+    margin: 1rem auto;
+}
+
+footer {
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+/* custom classes */
+
+tags {
+  display: block;
+}
+
+tags a {
+  font-size: 0.7rem;
+  border: 1px solid var(--accent);
+  border-radius: 0.7rem;
+  padding: 0.05rem 0.5rem;
+}
+
+tags a:hover,
+tags a:focus,
+tags a:active {
+  background: var(--accent);
+}
+
+tags a::before {
+  border: none;
+}
+
+threads {
+    font-size: 0.8rem;
+    display: block;
+    margin-top: 1rem;
+}

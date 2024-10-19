@@ -1,0 +1,17 @@
+.footnote-definition {
+    display: flex;
+}
+
+.footnote-definition-label {
+    margin-right: 0.25rem;
+    font-size: 1rem;
+    top: 0;
+}
+
+.footnote-definition-label::before {
+    content: "[";
+}
+
+.footnote-definition-label::after {
+    content: "]:";
+}

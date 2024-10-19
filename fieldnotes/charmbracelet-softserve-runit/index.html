@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>catbash.glitch.me</title>
+        <link rel="stylesheet" href="https://catbash.glitch.me/reset.css">
+        <link rel="stylesheet" href="https://catbash.glitch.me/site.css">
+        <link rel="stylesheet" href="https://catbash.glitch.me/classed.css">
+    </head>
+    <body>
+        <header>
+            <div>
+                <h1>
+                    <a href="/">
+                        hmmmm
+                    </a>
+                </h1>
+                <ul>
+                    <li>
+                        <a href="https://catbash.glitch.me/fieldnotes/">
+                            fieldnotes
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </header>
+        <main>
+            <div>
+                
+    <div>
+        <h1>
+          charmbracelet&#x2F;soft-serve runit
+        </h1>
+        <tags>
+            
+            <a href="/tags/void">
+                #void
+            </a>
+            
+            <a href="/tags/runit">
+                #runit
+            </a>
+            
+        </tags>
+    </div>
+    
+    <details>
+        <summary>Threads</summary>
+        <threads>
+            <ul>
+                
+                
+                
+                <li>
+                    <a href="https://catbash.glitch.me/fieldnotes/charmbracelet-softserve-void-setup/">
+                        charmbracelet-softserve-void-setup.md
+                    </a>
+                </li>
+                
+            </ul>
+            <ul>
+                
+            </ul>
+        </threads>
+    </details>
+    
+    <hr />
+    <p>Runit on Void Linux depends heavily on the following directories: <sup class="footnote-reference"><a href="#1">1</a></sup></p>
+<ul>
+<li><code>/etc/sv</code> hosts the actual services</li>
+<li><code>/var/service</code> symlinks to the services to make them available to the <code>sv</code> command</li>
+</ul>
+<p>First, we need to create the service:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">mkdir</span><span> /etc/sv/soft-serve
+</span></code></pre>
+<p>Services in the <code>/etc/sv</code> directory have the following general structure:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>/etc/sv/example-service/
+</span><span>├── run
+</span><span>└── log/
+</span><span>    └── run
+</span></code></pre>
+<p>The <code>run</code> files are both executable which runit uses to run and log your service.</p>
+<p>Specify what should happen in your service in the <code>&lt;service&gt;/run</code> file. In this case, I also supplemented with a <code>soft.service.sh</code> bash script to run as the service.</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#65737e;">#! /bin/sh
+</span><span style="color:#96b5b4;">exec </span><span style="color:#d08770;">2</span><span>&gt;&amp;</span><span style="color:#d08770;">1
+</span><span style="color:#96b5b4;">exec</span><span> /etc/sv/soft-serve/soft.service.sh
+</span></code></pre>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#65737e;">#! /bin/sh -e
+</span><span style="color:#96b5b4;">cd</span><span> /home/user/soft-serve &amp;&amp; </span><span style="color:#bf616a;">soft</span><span> serve
+</span></code></pre>
+<p>Then we need to set up our <code>&lt;service&gt;/log/run</code> file. For this, I just copied from the <code>log/run</code> file generated for the <code>sshd</code> service.</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#65737e;">#! /bin/sh
+</span><span style="color:#96b5b4;">exec</span><span> vlogger -t soft-serve -p daemon
+</span></code></pre>
+<p>If you can run <code>./run</code> from the <code>/etc/sv/soft-serve</code> directory successfully (i.e., you see the output indicating that the server is up), you have configured the service correctly!</p>
+<p>Next, symlink your service.</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">ln -s</span><span> /etc/sv/soft-serve /var/service/
+</span></code></pre>
+<p>... And run your service: <code>sv up soft-serve</code></p>
+<hr />
+<p><code>[ 2024.10.19 ]</code> So far, this seems to create a few problems:</p>
+<ul>
+<li>Running with this setup does not grant access to the repositories, for some reason</li>
+<li>Stopping the service does not close the ports used by soft serve
+<ul>
+<li><code>9418</code></li>
+<li><code>23231</code></li>
+<li><code>23232</code></li>
+<li><code>23233</code></li>
+</ul>
+</li>
+</ul>
+<p>Running <code>soft serve</code> in tmux directly from the <code>/home/user/soft-serve</code> directory does not have these problems.</p>
+<h3 id="references">References</h3>
+<div class="footnote-definition" id="1"><sup class="footnote-definition-label">1</sup>
+<p>https://docs.voidlinux.org/config/services/index.html</p>
+</div>
+<h4 id="other-resources">Other Resources</h4>
+<ul>
+<li>https://kchard.github.io/runit-quickstart/</li>
+<li>https://github.com/charmbracelet/soft-serve/blob/main/.nfpm/soft-serve.service</li>
+</ul>
+
+
+            </div>
+        </main>
+        <footer>
+            <div>
+                <a href="https://www.getzola.org/">Made with Zola!</a>
+            </div>
+        </footer>
+    </body>
+</html>
+

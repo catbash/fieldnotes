@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>catbash.glitch.me</title>
+        <link rel="stylesheet" href="https://catbash.glitch.me/reset.css">
+        <link rel="stylesheet" href="https://catbash.glitch.me/site.css">
+        <link rel="stylesheet" href="https://catbash.glitch.me/classed.css">
+    </head>
+    <body>
+        <header>
+            <div>
+                <h1>
+                    <a href="/">
+                        hmmmm
+                    </a>
+                </h1>
+                <ul>
+                    <li>
+                        <a href="https://catbash.glitch.me/fieldnotes/">
+                            fieldnotes
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </header>
+        <main>
+            <div>
+                
+    <div>
+        <h1>
+          charmbracelet&#x2F;soft-serve on Void
+        </h1>
+        <tags>
+            
+            <a href="/tags/void">
+                #void
+            </a>
+            
+            <a href="/tags/go">
+                #go
+            </a>
+            
+        </tags>
+    </div>
+    
+    <details>
+        <summary>Threads</summary>
+        <threads>
+            <ul>
+                
+                
+                
+                <li>
+                    <a href="https://catbash.glitch.me/fieldnotes/charmbracelet-softserve-runit/">
+                        charmbracelet-softserve-runit.md
+                    </a>
+                </li>
+                
+            </ul>
+            <ul>
+                
+            </ul>
+        </threads>
+    </details>
+    
+    <hr />
+    <p>Installing <code>charmbracelet/soft-serve</code> on Void Linux.</p>
+<ul>
+<li><code>charmbracelet/soft-serve</code> v0.7.6</li>
+<li>Void Linux v6.6.56_2 (<code>xbps-install -Su</code>)</li>
+</ul>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">go</span><span> install github.com/charmbracelet/soft-serve/cmd/soft@latest
+</span><span style="color:#bf616a;">sudo</span><span> ln</span><span style="color:#bf616a;"> -s ~</span><span>/go/bin/soft /bin/soft
+</span><span>
+</span><span style="color:#96b5b4;">cd </span><span style="color:#bf616a;">~
+</span><span>
+</span><span style="color:#65737e;"># make the soft-serve dir
+</span><span style="color:#bf616a;">mkdir</span><span> soft-serve
+</span><span style="color:#96b5b4;">cd</span><span> soft-serve
+</span><span>
+</span><span style="color:#65737e;"># touch logfile
+</span><span style="color:#bf616a;">touch</span><span> out.log
+</span></code></pre>
+<p>In order to be authorized when you first initiate the server, you must set the <code>SOFT_SERVE_INITIAL_ADMIN_KEYS</code> environment variable directly <em>before</em> running <code>soft serve</code> for the first time.</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#b48ead;">export </span><span style="color:#bf616a;">SOFT_SERVE_INITIAL_ADMIN_KEYS</span><span>=&quot;</span><span style="color:#a3be8c;">ssh-ed25519 AAA...</span><span>&quot;
+</span><span style="color:#65737e;"># run the server for the first time
+</span><span style="color:#bf616a;">soft</span><span> serve
+</span></code></pre>
+<p>Note that at this time you will have the following directory structure:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>~/soft-serve/
+</span><span>├── data/
+</span><span>│   ├── config.yaml
+</span><span>│   ├── soft-serve.db
+</span><span>│   ├── hooks/
+</span><span>│   ├── logs/
+</span><span>│   └── ssh/
+</span><span>└── out.log
+</span></code></pre>
+<p>Set up <code>config.yaml</code> to specify the <code>name</code> and <code>log.path</code> properties at a minimum. The other defaults seemed to work just fine.</p>
+<p>Next, add the git connection to your ssh config:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>Host example.git
+</span><span>  HostName 192.168.0.01
+</span><span>  User username
+</span><span>  IdentityFile /home/user/.ssh/key.pub
+</span><span>  IdentitiesOnly yes
+</span><span>  Port 23231
+</span></code></pre>
+<p>You can add a repository with <code>ssh example.git repo create &lt;name&gt;</code> and set it as the origin for your git project using <code>git remote add origin ssh://example.git/name.git</code>.</p>
+<hr />
+<p>Re: <code>Error: unauthorized</code> issue, alternatively you can also temporarily set <code>settings.anon_access</code> to <code>admin-access</code> in case the connection does not register you as the <code>admin</code> user. This is not necessary but can be helpful if you are still having trouble. Once you get access, make sure to run <code>ssh example.git settings anon_access read-only</code>.</p>
+
+
+            </div>
+        </main>
+        <footer>
+            <div>
+                <a href="https://www.getzola.org/">Made with Zola!</a>
+            </div>
+        </footer>
+    </body>
+</html>
+
