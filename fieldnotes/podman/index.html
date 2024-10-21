@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>catbash.glitch.me</title>
+        <link rel="stylesheet" href="/reset.css">
+        <link rel="stylesheet" href="/site.css">
+        <link rel="stylesheet" href="/classed.css">
+    </head>
+    <body>
+        <header>
+            <div>
+                <h1>
+                    <a href="/">
+                        hmmmm
+                    </a>
+                </h1>
+                <ul>
+                    <li>
+                        <a href="/fieldnotes/">
+                            fieldnotes
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </header>
+        <main>
+            <div>
+                
+    <div>
+        <h1>
+          Some Notes on Podman
+        </h1>
+        <tags>
+            
+            <a href="/tags/podman">
+                #podman
+            </a>
+            
+            <a href="/tags/containers">
+                #containers
+            </a>
+            
+            <a href="/tags/vm">
+                #vm
+            </a>
+            
+        </tags>
+    </div>
+    
+    <hr />
+    <p>A collection of notes as I set up and learn to use Podman.</p>
+<ul>
+<li>Why Podman? Rootless mode! <sup class="footnote-reference"><a href="#1">1</a></sup> <sup class="footnote-reference"><a href="#2">2</a></sup></li>
+<li>You need to make sure your user has enough allocated gids and uids</li>
+</ul>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span># include in /etc/subgid and /etc/subuid
+</span><span>username:10000:75535
+</span></code></pre>
+<ul>
+<li>Sometimes, there are errors that look like this:</li>
+</ul>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>Error: writing blob: adding layer with blob &quot;sha256:59b...&quot;: Error processing tar file(exit status 1): potentially insufficient UIDs or GIDs available in user namespace (requested 0:42 for /etc/shadow): Check /etc/subuid and /etc/subgid: lchown /etc/shadow: invalid argument
+</span></code></pre>
+<p>When this happens, you need to increase the gid and uid range and run <code>podman system migrate</code> so that podman registers the changes <sup class="footnote-reference"><a href="#3">3</a></sup></p>
+<ul>
+<li>You do not necessarily have to be able to run <code>podman machine start</code> after <code>podman machine init</code> when installing podman for the first time. If <code>podman info</code> loads without issue, then you're good to go. <sup class="footnote-reference"><a href="#4">4</a></sup></li>
+</ul>
+<hr />
+<h2 id="references">References</h2>
+<div class="footnote-definition" id="1"><sup class="footnote-definition-label">1</sup>
+<p>https://docs.podman.io/en/latest/markdown/podman.1.html#rootless-mode</p>
+</div>
+<div class="footnote-definition" id="2"><sup class="footnote-definition-label">2</sup>
+<p>https://github.com/containers/podman/blob/main/docs/tutorials/rootless_tutorial.md</p>
+</div>
+<div class="footnote-definition" id="3"><sup class="footnote-definition-label">3</sup>
+<p>https://github.com/containers/podman/issues/12715</p>
+</div>
+<div class="footnote-definition" id="4"><sup class="footnote-definition-label">4</sup>
+<p>https://bbs.archlinux.org/viewtopic.php?id=292037</p>
+</div>
+
+
+            </div>
+        </main>
+        <footer>
+            <div>
+                <a href="https://www.getzola.org/">Made with Zola!</a>
+            </div>
+        </footer>
+    </body>
+</html>
+

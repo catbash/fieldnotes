@@ -89,6 +89,9 @@ pre {
     margin: 1rem;
     border-radius: 7px;
     font-family: monospace;
+    overflow: auto;
+    word-wrap: break-word;
+    white-space: pre-wrap;
 }
 
 code {
